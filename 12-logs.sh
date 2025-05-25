@@ -11,19 +11,19 @@ SCRIPT_NAME=$(echo $0 | cut -d "." -f1)
 LOG_FILE="$LOGS_FOLDER/$SCRIPT_NAME.log"
 
 mkdir -p $LOGS_FOLDER
-echo "Script started at:: $(date)" &>>$LOG_FILE
+echo "Script started at:: $(date)" $N" | tee -a $LOG_FILE
 if [ $USER -ne 0 ]
 then
-    echo -e "$R ERROR:: Please run with root access $N" &>>$LOG_FILE
+    echo -e "$R ERROR:: Please run with root access $N" | tee -a $LOG_FILE
     exit 1
 else
-    echo "your running with root access" &>>$LOG_FILE
+    echo "your running with root access" $N" | tee -a $LOG_FILE
 fi
 
 VALIDATE(){
     if [ $1 -eq 0 ]
     then
-        echo -e "installing $2 is $G success.... $N" &>>$LOG_FILE
+        echo -e "installing $2 is $G success.... $N" | tee -a $LOG_FILE
     else
         echo -e "installing $2 is $R failed...$N" &>>$LOG_FILE
         exit 1
@@ -33,7 +33,7 @@ dnf list installed mysql
 
 if [ $? -ne 0 ]
 then 
-    echo -e "Mysql is $R not installed going to install it... $N" &>>$LOG_FILE
+    echo -e "Mysql is $R not installed going to install it... $N" | tee -a $LOG_FILE
     dnf install mysql -y
     VALIDATE $? "MYSQL"
 else
@@ -56,10 +56,10 @@ dnf list installed nginx
 
 if [ $? -ne 0 ]
 then 
-    echo -e "nginx is $R not installed going to install it... $N" &>>$LOG_FILE
+    echo -e "nginx is $R not installed going to install it... $N" | tee -a $LOG_FILE
     dnf install nginx -y
 
     VALIDATE $? "nginx"
 else
-    echo -e "nginx is $Y already installed $N" &>>$LOG_FILE
+    echo -e "nginx is $Y already installed $N" | tee -a $LOG_FILE
 fi
