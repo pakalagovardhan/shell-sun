@@ -2,6 +2,6 @@
 
 echo "Enter your PIN"
 
-read node
+read -s node
 
 echo "your PIN is $node"
