@@ -32,7 +32,7 @@ then
     dnf install mysql -y
     VALIDATE $? "MYSQL"
 else
-    echo "Mysql is $Y already installed $N"
+    echo -e "Mysql is $Y already installed $N"
 fi
 
 dnf list installed python3
